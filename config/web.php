@@ -56,6 +56,16 @@ $config = [
             'rules' => [
                 //primera regla para el primer controlador 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'answer'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'attendance'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'code'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'degree'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'extracurricular'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-person'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'grade'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'person'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'question'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher'],
             ],
         ]
     ],
