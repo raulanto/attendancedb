@@ -56,6 +56,9 @@ $config = [
             'rules' => [
                 //primera regla para el primer controlador 
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'answer'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'major'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major'],
             ],
         ]
     ],
