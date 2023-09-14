@@ -74,6 +74,6 @@ class Attendance extends \yii\db\ActiveRecord
      */
     public function getAttFklist()
     {
-        return $this->hasOne(List::class, ['list_id' => 'att_fklist']);
+        return $this->hasOne(Listg::class, ['list_id' => 'att_fklist']);
     }
 }
