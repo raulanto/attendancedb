@@ -69,7 +69,10 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'library'],                
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'library'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'major'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major'],                
             ],
         ]
     ],
