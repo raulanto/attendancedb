@@ -15,7 +15,7 @@ use Yii;
  * @property int $att_fkcode Foreign key of the code for the attendance
  *
  * @property Code $attFkcode
- * @property List $attFklist
+ * @property Lis $attFklist
  */
 class Attendance extends \yii\db\ActiveRecord
 {
@@ -38,7 +38,7 @@ class Attendance extends \yii\db\ActiveRecord
             [['att_commit'], 'string'],
             [['att_fklist', 'att_fkcode'], 'integer'],
             [['att_fkcode'], 'exist', 'skipOnError' => true, 'targetClass' => Code::class, 'targetAttribute' => ['att_fkcode' => 'cod_id']],
-            [['att_fklist'], 'exist', 'skipOnError' => true, 'targetClass' => List::class, 'targetAttribute' => ['att_fklist' => 'list_id']],
+            [['att_fklist'], 'exist', 'skipOnError' => true, 'targetClass' => Lis::class, 'targetAttribute' => ['att_fklist' => 'list_id']],
         ];
     }
 
@@ -77,3 +77,4 @@ class Attendance extends \yii\db\ActiveRecord
         return $this->hasOne(Listg::class, ['list_id' => 'att_fklist']);
     }
 }
+
