@@ -22,4 +22,6 @@ class SubjectController extends ActiveController
         ];
         return $behaviors;
     }
+
+    //comentario de prueba para verificar que git funciona
 }
