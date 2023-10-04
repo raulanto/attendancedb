@@ -1,5 +1,5 @@
 <?php
-
+//CONTROLADOR DE TABLA PERSON
 namespace app\controllers;
 
 use yii\rest\ActiveController;
