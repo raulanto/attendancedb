@@ -1,5 +1,5 @@
 <?php
-//MODELO DE TABLA EXTRACURRICULAR
+
 namespace app\models;
 
 use Yii;
@@ -16,7 +16,7 @@ use Yii;
  * @property string $ext_place
  * @property string $ext_code
  *
- * @property ExtraPerson[] $extraPeople
+ * @property ExtraGroup[] $extraGroups
  */
 class Extracurricular extends \yii\db\ActiveRecord
 {
@@ -61,13 +61,13 @@ class Extracurricular extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ExtraPeople]].
+     * Gets query for [[ExtraGroups]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getExtraPeople()
+    public function getExtraGroups()
     {
-        return $this->hasMany(ExtraPerson::class, ['extper_fkextracurricular' => 'ext_id']);
+        return $this->hasMany(ExtraGroup::class, ['extgro_fkextracurricular' => 'ext_id']);
     }
 
 

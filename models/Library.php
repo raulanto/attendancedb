@@ -63,4 +63,12 @@ class Library extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Group::class, ['gro_id' => 'lib_fkgroup']);
     }
+
+    public function extraFields(){
+        return[
+            'group' => function($item){
+                return $item->libFkgroup->gro_code;
+            }
+        ];
+    }
 }

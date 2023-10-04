@@ -134,4 +134,18 @@ class Group extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Listg::class, ['list_fkgroup' => 'gro_id']);
     }
+
+    public function extraFields(){
+        return[
+            'teacher' => function($item){
+                return $item->groFkteacher->tea_name;
+            },
+            'subject' => function($item){
+                return $item->groFksubject->sub_name;
+            },
+            'classroom' => function($item){
+                return $item->groFkclassroom->clas_name;
+            }
+        ];
+    }
 }

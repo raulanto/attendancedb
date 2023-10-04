@@ -76,4 +76,16 @@ class Attendance extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Listg::class, ['list_id' => 'att_fklist']);
     }
+<<<<<<< HEAD
 }
+=======
+
+    public function extraFields(){
+        return[
+            'code' => function($item){
+                return $item->attFkcode->cod_code;
+            }
+        ];
+    }
+}
+>>>>>>> ed24de82a1394ffa60d054faa0d2c74b1912a513

@@ -75,7 +75,17 @@ class Code extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Group::class, ['gro_id' => 'cod_fkgroup']);
     }
+<<<<<<< HEAD
     public function extraFields (){
         return $this->codFkgroup->gro_code;
+=======
+
+    public function extraFields(){
+        return[
+            'group' => function($item){
+                return $item->codFkgroup->gro_code;
+            }
+        ];
+>>>>>>> ed24de82a1394ffa60d054faa0d2c74b1912a513
     }
 }

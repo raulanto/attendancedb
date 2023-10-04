@@ -71,4 +71,15 @@ class ExtraGroup extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Group::class, ['gro_id' => 'extgro_fkgroup']);
     }
+
+    public function extraFields(){
+        return[
+            'extracurricular' => function($item){
+                return $item->extgroFkextracurricular->ext_name;
+            },
+            'group' => function($item){
+                return $item->extgroFkgroup->gro_code;
+            }
+        ];
+    }
 }

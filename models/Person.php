@@ -1,5 +1,5 @@
 <?php
-
+//CONTROLADOR DE TABLA PERSON
 namespace app\models;
 
 use Yii;
@@ -8,12 +8,14 @@ use Yii;
  * This is the model class for table "person".
  *
  * @property int $per_id
+ * @property string|null $per_code
  * @property string $per_name
  * @property string $per_paternal
  * @property string $per_maternal
  * @property string $per_mail
  * @property string $per_phone
  *
+ * @property ExtraPerson[] $extraPeople
  * @property Grade[] $grades
  * @property Listg[] $listgs
  * @property Question[] $questions
@@ -35,9 +37,9 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             [['per_name', 'per_paternal', 'per_maternal', 'per_mail', 'per_phone'], 'required'],
+            [['per_code', 'per_phone'], 'string', 'max' => 10],
             [['per_name', 'per_paternal', 'per_maternal'], 'string', 'max' => 50],
             [['per_mail'], 'string', 'max' => 100],
-            [['per_phone'], 'string', 'max' => 10],
         ];
     }
 
@@ -48,12 +50,23 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             'per_id' => 'Per ID',
+            'per_code' => 'Per Code',
             'per_name' => 'Per Name',
             'per_paternal' => 'Per Paternal',
             'per_maternal' => 'Per Maternal',
             'per_mail' => 'Per Mail',
             'per_phone' => 'Per Phone',
         ];
+    }
+
+    /**
+     * Gets query for [[ExtraPeople]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getExtraPeople()
+    {
+        return $this->hasMany(ExtraPerson::class, ['extper_fkperson' => 'per_id']);
     }
 
     /**

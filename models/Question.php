@@ -104,4 +104,18 @@ class Question extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Teacher::class, ['tea_id' => 'que_fkteacher']);
     }
+
+    public function extraFields(){
+        return[
+            'person' => function($item){
+                return $item->queFkperson->per_name;
+            },
+            'tag' => function($item){
+                return $item->queFktag->tag_name;
+            },
+            'teacher' => function($item){
+                return $item->queFkteacher->tea_name;
+            }
+        ];
+    }
 }
