@@ -82,4 +82,15 @@ class Grade extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Person::class, ['per_id' => 'gra_fkperson']);
     }
+
+    public function extraFields(){
+        return[
+            'person' => function($item){
+                return $item->graFkperson->per_name;
+            },
+            'group' => function($item){
+                return $item->graFkgroup->gro_code;
+            }
+        ];
+    }
 }

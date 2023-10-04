@@ -62,4 +62,12 @@ class Answer extends \yii\db\ActiveRecord
         //de uno a uno 
         return $this->hasOne(Question::class, ['que_id' => 'ans_fkquestion']);
     }
+
+    public function extraFields(){
+        return[
+            'title' => function($item){
+                return $item->ansFkquestion->que_title;
+            }
+        ];
+    }
 }

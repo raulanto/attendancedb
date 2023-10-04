@@ -80,8 +80,14 @@ class Listg extends \yii\db\ActiveRecord
         return $this->hasOne(Person::class, ['per_id' => 'list_fkperson']);
     }
 
-    public function extraFields()
-{   //para hasOne
-    return $this->list_fkperson->per_code;
-}
+    public function extraFields(){
+        return[
+            'person' => function($item){
+                return $item->listFkperson->per_name;
+            },
+            'group' => function($item){
+                return $item->listFkgroup->gro_code;
+            }
+        ];
+    }
 }
