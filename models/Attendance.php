@@ -7,15 +7,15 @@ use Yii;
 /**
  * This is the model class for table "attendance".
  *
- * @property int $att_id Unique identifier for table attendance
- * @property string $att_date Date attendance is taken
- * @property string $att_time Time attendance is taken
- * @property string $att_commit Additional comment
- * @property int $att_fklist Foreign key of the attendance list
- * @property int $att_fkcode Foreign key of the code for the attendance
+ * @property int $att_id
+ * @property string $att_date
+ * @property string $att_time
+ * @property string $att_commit
+ * @property int $att_fklist
+ * @property int $att_fkcode
  *
  * @property Code $attFkcode
- * @property List $attFklist
+ * @property Listg $attFklist
  */
 class Attendance extends \yii\db\ActiveRecord
 {
@@ -38,7 +38,7 @@ class Attendance extends \yii\db\ActiveRecord
             [['att_commit'], 'string'],
             [['att_fklist', 'att_fkcode'], 'integer'],
             [['att_fkcode'], 'exist', 'skipOnError' => true, 'targetClass' => Code::class, 'targetAttribute' => ['att_fkcode' => 'cod_id']],
-            [['att_fklist'], 'exist', 'skipOnError' => true, 'targetClass' => List::class, 'targetAttribute' => ['att_fklist' => 'list_id']],
+            [['att_fklist'], 'exist', 'skipOnError' => true, 'targetClass' => Listg::class, 'targetAttribute' => ['att_fklist' => 'list_id']],
         ];
     }
 
@@ -48,12 +48,12 @@ class Attendance extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'att_id' => 'Unique identifier for table attendance',
-            'att_date' => 'Date attendance is taken',
-            'att_time' => 'Time attendance is taken',
-            'att_commit' => 'Additional comment',
-            'att_fklist' => 'Foreign key of the attendance list',
-            'att_fkcode' => 'Foreign key of the code for the attendance',
+            'att_id' => 'Att ID',
+            'att_date' => 'Att Date',
+            'att_time' => 'Att Time',
+            'att_commit' => 'Att Commit',
+            'att_fklist' => 'Att Fklist',
+            'att_fkcode' => 'Att Fkcode',
         ];
     }
 
@@ -74,6 +74,14 @@ class Attendance extends \yii\db\ActiveRecord
      */
     public function getAttFklist()
     {
-        return $this->hasOne(List::class, ['list_id' => 'att_fklist']);
+        return $this->hasOne(Listg::class, ['list_id' => 'att_fklist']);
+    }
+
+    public function extraFields(){
+        return[
+            'code' => function($item){
+                return $item->attFkcode->cod_code;
+            }
+        ];
     }
 }
