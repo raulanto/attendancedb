@@ -15,7 +15,7 @@ use Yii;
  * @property int $att_fkcode
  *
  * @property Code $attFkcode
- * @property Listg $attFklist
+ * @property List $attFklist
  */
 class Attendance extends \yii\db\ActiveRecord
 {
@@ -76,6 +76,9 @@ class Attendance extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Listg::class, ['list_id' => 'att_fklist']);
     }
+<<<<<<< HEAD
+}
+=======
 
     public function extraFields(){
         return[
@@ -85,3 +88,4 @@ class Attendance extends \yii\db\ActiveRecord
         ];
     }
 }
+>>>>>>> ed24de82a1394ffa60d054faa0d2c74b1912a513

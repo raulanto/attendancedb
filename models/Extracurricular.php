@@ -69,4 +69,6 @@ class Extracurricular extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ExtraGroup::class, ['extgro_fkextracurricular' => 'ext_id']);
     }
+
+
 }
