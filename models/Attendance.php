@@ -38,7 +38,7 @@ class Attendance extends \yii\db\ActiveRecord
             [['att_commit'], 'string'],
             [['att_fklist', 'att_fkcode'], 'integer'],
             [['att_fkcode'], 'exist', 'skipOnError' => true, 'targetClass' => Code::class, 'targetAttribute' => ['att_fkcode' => 'cod_id']],
-            [['att_fklist'], 'exist', 'skipOnError' => true, 'targetClass' => List::class, 'targetAttribute' => ['att_fklist' => 'list_id']],
+            [['att_fklist'], 'exist', 'skipOnError' => true, 'targetClass' => Listg::class, 'targetAttribute' => ['att_fklist' => 'list_id']],
         ];
     }
 
