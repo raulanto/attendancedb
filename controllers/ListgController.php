@@ -5,7 +5,9 @@ use yii\rest\ActiveController;
 
 class ListgController extends ActiveController
 {
-    public $modelClass = 'app\models\Listg';
+    public $modelClass = 'app\models\
+    
+    ';
     public function behaviors(){
         $behaviors = parent::behaviors();
         $behaviors['corsFilter'] = [
