@@ -56,4 +56,14 @@ class Major extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SubjectMajor::class, ['submaj_fkmajor' => 'maj_id']);
     }
+
+    public function consultaSubjects($sub_id) {
+        $respuesta = [];
+        $consulta = Subject::find()->where(['submaj_fkmajor' => $sub_id])->all();
+        foreach($consulta as $con) {
+            $respuesta[] = ['clave' => 'valor'];
+        }
+    }
+
+    
 }
