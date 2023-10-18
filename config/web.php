@@ -72,7 +72,8 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major'],                
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major'],  
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-group'],               
             ],
         ]
     ],
