@@ -82,8 +82,8 @@ class Listg extends \yii\db\ActiveRecord
 
     public function extraFields(){
         return[
-            'person' => function($item){
-                return $item->listFkperson->per_name;
+            'person' => function ($item) {
+                return $item->listFkperson->per_name . " " . $item->listFkperson->per_paternal . " " . $item->listFkperson->per_maternal;
             },
             'group' => function($item){
                 return $item->listFkgroup->gro_code;

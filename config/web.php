@@ -71,11 +71,45 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],               
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                //Regla para la funcion que trae la lista de un cierto grupo
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'listg',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET listas/{id}' => 'listas'
+                    ],
+                ],
+                //Regla que trae el detalle de asistencia de un cierto fklist 
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'attendance',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET asistencias/{id}' => 'asistencias'
+                    ],
+                ],
+                //Regla para traer todos los codigos de un grupo especifico
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'code',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET codigos/{id}' => 'codigos'
+                    ],
+                ],
+                               
             ],
         ]
     ],

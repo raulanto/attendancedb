@@ -82,6 +82,7 @@ class Attendance extends \yii\db\ActiveRecord
             'code' => function($item){
                 return $item->attFkcode->cod_code;
             }
+            
         ];
     }
 }
