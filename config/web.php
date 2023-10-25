@@ -109,6 +109,17 @@ $config = [
                         'GET codigos/{id}' => 'codigos'
                     ],
                 ],
+                //Regla para traer todos los archivos de un grupo especifico
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'library',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET librarys/{id}' => 'librarys'
+                    ],
+                ],
                                
             ],
         ]
