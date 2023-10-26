@@ -71,7 +71,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'], 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
