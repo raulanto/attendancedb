@@ -49,6 +49,7 @@ class LibraryController extends ActiveController
         $result = [];
         foreach ($libraryEntries as $entry) {
             $result[] = [
+                'lib_id' => $entry->lib_id,
                 'lib_type' => $entry->lib_type,
                 'lib_title' => $entry->lib_title,
                 'lib_description' => $entry->lib_description,
