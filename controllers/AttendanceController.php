@@ -64,6 +64,8 @@ class AttendanceController extends ActiveController
             return ['message' => 'No se encontraron asistencias para el ID proporcionado'];
         }
     }
+
+    
     
  
 }

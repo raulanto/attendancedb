@@ -122,7 +122,7 @@ $config = [
                 ],
                                
             ],
-        ]
+
     ],
     'params' => $params,
 ];
