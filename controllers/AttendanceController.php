@@ -4,7 +4,6 @@ namespace app\controllers;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
-use app\models\Attendance;
 
 class AttendanceController extends ActiveController
 {
@@ -30,14 +29,14 @@ class AttendanceController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view','asistencias']
+            'except' => ['index', 'view']
         ];
     
         return $behaviors;
     }
     public $modelClass = 'app\models\Attendance';
-    public $enableCsrfValidation = false;
 
+<<<<<<< HEAD
     //funcion personalizada 
     public function actionAsistencias($id)
     {
@@ -68,4 +67,7 @@ class AttendanceController extends ActiveController
     
     
  
+=======
+    public $enableCsrfValidation = false;
+>>>>>>> parent of 652c958 (commit 23/10/2023)
 }

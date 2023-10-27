@@ -71,6 +71,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
+<<<<<<< HEAD
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'], 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
@@ -119,6 +120,13 @@ $config = [
                     'extraPatterns' => [
                         'GET librarys/{id}' => 'librarys'
                     ],
+=======
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],               
+>>>>>>> parent of 652c958 (commit 23/10/2023)
             ],
         ],
     ],

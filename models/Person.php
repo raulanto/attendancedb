@@ -98,9 +98,4 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Question::class, ['que_fkperson' => 'per_id']);
     }
-    //funcion que retorna el nombre completo
-    public function getCompleto()
-    {
-        return $this->per_name.' '.$this->per_paternal.' '.$this->per_maternal;
-    }
 }

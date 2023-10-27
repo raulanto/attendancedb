@@ -83,9 +83,4 @@ class Code extends \yii\db\ActiveRecord
             }
         ];
     }
-
-    public function getCode()
-    {
-        return $this->cod_code;
-    }
 }
