@@ -57,7 +57,7 @@ $config = [
             'showScriptName' => false,
             //reglas de mi url para controlador 
             'rules' => [
-                //primera regla para el primer controlador 
+                //primera regla para el primer controlador
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'answer', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'attendance', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'code', 'pluralize' => false],
@@ -87,7 +87,7 @@ $config = [
                         'GET listas/{id}' => 'listas'
                     ],
                 ],
-                //Regla que trae el detalle de asistencia de un cierto fklist 
+                //Regla que trae el detalle de asistencia de un cierto fklist
                 [
                     'class'      => 'yii\rest\UrlRule',
                     'controller' => 'attendance',
@@ -119,10 +119,8 @@ $config = [
                     'extraPatterns' => [
                         'GET librarys/{id}' => 'librarys'
                     ],
-                ],
-                               
             ],
-
+        ],
     ],
     'params' => $params,
 ];
