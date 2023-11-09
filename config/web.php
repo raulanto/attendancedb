@@ -57,7 +57,7 @@ $config = [
             'showScriptName' => false,
             //reglas de mi url para controlador 
             'rules' => [
-                //primera regla para el primer controlador 
+                //primera regla para el primer controlador
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'answer', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'attendance', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'code', 'pluralize' => false],
@@ -71,13 +71,64 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
+<<<<<<< HEAD
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'], 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                //Regla para la funcion que trae la lista de un cierto grupo
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'listg',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET listas/{id}' => 'listas'
+                    ],
+                ],
+                //Regla que trae el detalle de asistencia de un cierto fklist
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'attendance',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET asistencias/{id}' => 'asistencias'
+                    ],
+                ],
+                //Regla para traer todos los codigos de un grupo especifico
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'code',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET codigos/{id}' => 'codigos'
+                    ],
+                ],
+                //Regla para traer todos los archivos de un grupo especifico
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'library',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET librarys/{id}' => 'librarys'
+                    ],
+=======
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],               
+>>>>>>> parent of 652c958 (commit 23/10/2023)
             ],
-        ]
+        ],
     ],
     'params' => $params,
 ];

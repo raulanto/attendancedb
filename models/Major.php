@@ -56,4 +56,5 @@ class Major extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SubjectMajor::class, ['submaj_fkmajor' => 'maj_id']);
     }
+
 }

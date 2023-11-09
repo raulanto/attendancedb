@@ -36,5 +36,38 @@ class AttendanceController extends ActiveController
     }
     public $modelClass = 'app\models\Attendance';
 
+<<<<<<< HEAD
+    //funcion personalizada 
+    public function actionAsistencias($id)
+    {
+        // Buscar asistencias con el ID específico
+        $asistencias = Attendance::find()->where(['att_fklist' => $id])->all();
+    
+        // Verificar si se encontraron asistencias
+        if (!empty($asistencias)) {
+            $result = [];
+            foreach ($asistencias as $asistencia) {
+                // Agregar los campos deseados al resultado
+                $result[] = [
+                    'att_id' => $asistencia->att_id,
+                    'att_date' => $asistencia->att_date,
+                    'att_time' => $asistencia->att_time,
+                    'att_commit' => $asistencia->att_commit,
+                    'att_fkcode' => $asistencia->attFkcode->code,
+                    // Agregar otros campos si es necesario
+                ];
+            }
+            return $result;
+        } else {
+            // Manejar la situación en la que no se encontraron asistencias
+            return ['message' => 'No se encontraron asistencias para el ID proporcionado'];
+        }
+    }
+
+    
+    
+ 
+=======
     public $enableCsrfValidation = false;
+>>>>>>> parent of 652c958 (commit 23/10/2023)
 }
