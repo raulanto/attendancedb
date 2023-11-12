@@ -4,9 +4,9 @@ namespace app\controllers;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
-use app\models\Code;
+use app\models\Attendance;
 
-class CodeController extends ActiveController
+class AttendanceController extends ActiveController
 {
     public function behaviors()
     {
@@ -30,40 +30,40 @@ class CodeController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view','codigos']
+            'except' => ['index', 'view','asistencias']
         ];
     
         return $behaviors;
     }
-    public $modelClass = 'app\models\Code';
-    
+    public $modelClass = 'app\models\Attendance';
     public $enableCsrfValidation = false;
-    //Codigos
-    public function actionCodigos($id)
+
+    //funcion personalizada 
+    public function actionAsistencias($id)
     {
-        // Busca todos los códigos que pertenecen al grupo
-        $codigos = Code::find()
-            ->where(['cod_fkgroup' => $id])
-            ->all();
+        // Buscar asistencias con el ID específico
+        $asistencias = Attendance::find()->where(['att_fklist' => $id])->all();
     
-        // Verifica si se encontraron códigos
-        if (!empty($codigos)) {
+        // Verificar si se encontraron asistencias
+        if (!empty($asistencias)) {
             $result = [];
-            foreach ($codigos as $codigo) {
+            foreach ($asistencias as $asistencia) {
+                // Agregar los campos deseados al resultado
                 $result[] = [
-                    'cod_id' => $codigo->cod_id,
-                    'cod_code' => $codigo->cod_code,
-                    'cod_time' => $codigo->cod_time,
-                    'cod_date' => $codigo->cod_date,
-                    'cod_duration' => $codigo->cod_duration,
-                    // Puedes agregar otros campos si es necesario
+                    'att_id' => $asistencia->att_id,
+                    'att_date' => $asistencia->att_date,
+                    'att_time' => $asistencia->att_time,
+                    'att_commit' => $asistencia->att_commit,
+                    'att_fkcode' => $asistencia->attFkcode->code,
+                    // Agregar otros campos si es necesario
                 ];
             }
             return $result;
         } else {
-            // Manejar la situación en la que no se encontraron códigos
-            return ['message' => 'No se encontraron códigos para el grupo proporcionado'];
+            // Manejar la situación en la que no se encontraron asistencias
+            return ['message' => 'No se encontraron asistencias para el ID proporcionado'];
         }
     }
-      
+    
+ 
 }

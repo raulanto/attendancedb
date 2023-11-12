@@ -1,11 +1,11 @@
 <?php
-namespace app\controllers;
+namespace app\controllers;//CONTROLADOR DE TABLA EXTRACURRICULAR_PERSON
 
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
-class AnswerController extends ActiveController
+class ExtraPersonController extends ActiveController
 {
     public function behaviors()
     {
@@ -34,7 +34,7 @@ class AnswerController extends ActiveController
     
         return $behaviors;
     }
-    public $modelClass = 'app\models\Answer';
+    public $modelClass = 'app\models\ExtraPerson';
 
     public $enableCsrfValidation = false;
 }

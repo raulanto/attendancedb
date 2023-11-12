@@ -89,4 +89,12 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Degree::class, ['deg_id' => 'tea_fkdegree']);
     }
+
+    public function extraFields(){
+        return[
+            'degree' => function($item){
+                return $item->teaFkdegree->deg_name;
+            }
+        ];
+    }
 }

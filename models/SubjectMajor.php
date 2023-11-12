@@ -68,4 +68,15 @@ class SubjectMajor extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Subject::class, ['sub_id' => 'submaj_fksubject']);
     }
+
+    public function extraFields(){
+        return[
+            'major' => function($item){
+                return $item->submajFkmajor->maj_name;
+            },
+            'subject' => function($item){
+                return $item->submajFksubject->sub_name;
+            }
+        ];
+    }
 }

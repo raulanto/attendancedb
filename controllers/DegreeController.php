@@ -5,7 +5,7 @@ use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
-class AnswerController extends ActiveController
+class DegreeController extends ActiveController
 {
     public function behaviors()
     {
@@ -34,7 +34,7 @@ class AnswerController extends ActiveController
     
         return $behaviors;
     }
-    public $modelClass = 'app\models\Answer';
-
-    public $enableCsrfValidation = false;
+    public $modelClass = 'app\models\Degree';
+    
+    public $enableCsrfValidation = false;    
 }
