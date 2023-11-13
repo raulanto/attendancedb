@@ -76,6 +76,8 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'major/buscar/<text:.*>', 'route' => 'major/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'major/total/<text:.*>', 'route' => 'major/total'],
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -118,6 +120,19 @@ $config = [
                     ],
                     'extraPatterns' => [
                         'GET librarys/{id}' => 'librarys'
+                    ],
+                ],
+                //Regrla para buscar
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'major',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
                     ],
                 ],
                                
