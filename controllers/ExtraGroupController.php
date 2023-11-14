@@ -5,6 +5,8 @@ use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
+use app\models\ExtraGroup;
+
 class ExtraGroupController extends ActiveController
 {
     public function behaviors()
@@ -36,5 +38,14 @@ class ExtraGroupController extends ActiveController
     }
     public $modelClass = 'app\models\ExtraGroup';
     
-    public $enableCsrfValidation = false;            
+    public $enableCsrfValidation = false;
+
+    public function actionTotal($text) {
+        $total = ExtraGroup::find();
+        if($text != '') {
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(extracurricular, ' ', code, ' ', date, ' ', time)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
 }

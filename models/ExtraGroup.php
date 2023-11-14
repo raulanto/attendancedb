@@ -80,12 +80,6 @@ class ExtraGroup extends \yii\db\ActiveRecord
             'date' => function($item){
                 return $item->extgroFkextracurricular->ext_date;
             },
-            // 'closing' => function($item){
-            //     return $item->extgroFkextracurricular->ext_closing;
-            // },
-            // 'opening' => function($item){
-            //     return $item->extgroFkextracurricular->ext_opening;
-            // },
             'time' => function($item){
                 return "{$item->extgroFkextracurricular->ext_opening} - {$item->extgroFkextracurricular->ext_closing}";
             },
