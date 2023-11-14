@@ -71,11 +71,16 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
+                //['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'group/buscar/<text:.*>', 'route' => 'group/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'group/total/<text:.*>', 'route' => 'group/total'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'classroom/buscar/<text:.*>', 'route' => 'classroom/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'classroom/total/<text:.*>', 'route' => 'classroom/total'],
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -118,6 +123,32 @@ $config = [
                     ],
                     'extraPatterns' => [
                         'GET librarys/{id}' => 'librarys'
+                    ],
+                ],
+                //Regla para buscar en group
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'group',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}'      => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
+                //Regla para buscar en classroom
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'classroom',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}'      => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
                     ],
                 ],
                                
