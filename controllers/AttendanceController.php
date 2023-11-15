@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\Attendance;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
@@ -36,7 +37,6 @@ class AttendanceController extends ActiveController
     }
     public $modelClass = 'app\models\Attendance';
 
-<<<<<<< HEAD
     //funcion personalizada 
     public function actionAsistencias($id)
     {
@@ -63,11 +63,4 @@ class AttendanceController extends ActiveController
             return ['message' => 'No se encontraron asistencias para el ID proporcionado'];
         }
     }
-
-    
-    
- 
-=======
-    public $enableCsrfValidation = false;
->>>>>>> parent of 652c958 (commit 23/10/2023)
 }
