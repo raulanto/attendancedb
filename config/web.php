@@ -63,7 +63,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'code', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'degree', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'extracurricular', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-person', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-group', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'grade', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'person', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'question', 'pluralize' => false],
@@ -71,12 +71,15 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
-<<<<<<< HEAD
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'], 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/buscar/<text:.*>', 'route' => 'extra-group/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/total/<text:.*>', 'route' => 'extra-group/total'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/buscar/<text:.*>', 'route' => 'grade/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/total/<text:.*>', 'route' => 'grade/total'],
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -120,18 +123,40 @@ $config = [
                     'extraPatterns' => [
                         'GET librarys/{id}' => 'librarys'
                     ],
-=======
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],               
->>>>>>> parent of 652c958 (commit 23/10/2023)
+                ],
+
+                //Regla para extra-group
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'extra-group',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
+                //Regla para grade
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'grade',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
             ],
         ],
     ],
     'params' => $params,
 ];
+
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
