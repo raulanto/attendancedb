@@ -5,6 +5,7 @@ use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 use app\models\Listg;
+use app\models\Person;
 
 class ListgController extends ActiveController
 {
@@ -30,7 +31,7 @@ class ListgController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view', 'listas']
+            'except' => ['index', 'view', 'listas','buscar','total']
         ];
     
         return $behaviors;
@@ -39,29 +40,95 @@ class ListgController extends ActiveController
 
     public $enableCsrfValidation = false;
 
-    public function actionListas($id)
+    public function actionListas($text = '', $id = null)
 {
-    // Busca todas las listas que pertenecen al grupo
-    $listas = Listg::find()->where(['list_fkgroup' => $id])->all();
+    $listas = Listg::find()->joinWith(['listFkgroup', 'listFkperson']);
 
+    // Filtra por el ID del grupo si se proporciona
+    if ($id !== null) {
+        $listas = $listas->andWhere(['list_fkgroup' => $id]);
+    }
+
+    if ($text !== '') {
+
+        $listas = $listas
+            ->andWhere(['like', new \yii\db\Expression(
+                "CONCAT(list_id, ' ', list_fkgroup, ' ', list_fkperson, ' ', CONCAT(person.per_name, ' ', person.per_paternal, ' ', person.per_maternal))"), $text]);
+    }
+
+    $dataProvider = new \yii\data\ActiveDataProvider([
+        'query' => $listas,
+        'pagination' => [
+            'pageSize' => 20 
+        ],
+    ]);
     // Verifica si se encontraron listas
-    if (!empty($listas)) {
+    if (!empty($dataProvider->getModels())) {
         $result = [];
-        foreach ($listas as $datos=> $lista) {
+        foreach ($dataProvider->getModels() as $datos=> $lista) {
             $result[] = [
                 'list_id' => $lista->list_id,
                 'list_fkgroup' => $lista->list_fkgroup,
-                'list_fkperson' => $lista->listFkperson->completo,
-                // Agrega otros campos si es necesario
+                'person' => $lista->listFkperson->completo,
             ];
         }
         return $result;
     } else {
-        // Manejar la situación en la que no se encontraron listas
         return ['message' => 'No se encontraron listas para el grupo proporcionado'];
     }
 }
 
+public function actionBuscar($text = '', $id = null)
+{
+    $listas = Listg::find()->joinWith(['listFkgroup', 'listFkperson']);
+
+    // Filtra por el ID del grupo si se proporciona
+    if ($id !== null) {
+        $listas = $listas->andWhere(['list_fkgroup' => $id]);
+    }
+
+    if ($text !== '') {
+
+        $listas = $listas
+            ->andWhere(['like', new \yii\db\Expression(
+                "CONCAT(list_id, ' ', list_fkgroup, ' ', list_fkperson, ' ', CONCAT(person.per_name, ' ', person.per_paternal, ' ', person.per_maternal))"), $text]);
+    }
+
+    $dataProvider = new \yii\data\ActiveDataProvider([
+        'query' => $listas,
+        'pagination' => [
+            'pageSize' => 20 
+        ],
+    ]);
+
+    return $dataProvider->getModels();
+}
+
+
+
+
+
+
+
+
+public function actionTotal($text = '', $id = null)
+{
+    $total = Listg::find()->joinWith(['listFkgroup', 'listFkperson']);
+
+    if ($id !== null) {
+        $total = $total->Where(['list_fkgroup' => $id]);
+    }
+
+    if ($text !== '') {
+        $total = $total
+            ->andWhere(['like', new \yii\db\Expression(
+                "CONCAT(list_id, ' ', list_fkgroup, ' ', list_fkperson, ' ', group.gro_code, ' ', CONCAT(person.per_name, ' ', person.per_paternal, ' ', person.per_maternal))"), $text]);
+    }
+
+    $total = $total->count();
+    
+    return $total;
+}
 
 
 }
