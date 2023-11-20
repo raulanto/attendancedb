@@ -50,7 +50,7 @@ class SubjectController extends ActiveController
     }
     
     public function actionTotal($text='') {
-        $subjects = Subject::find();
+        $total = Subject::find();
         if($text != '') {
             $total = $total->where(['like', new \yii\db\Expression("CONCAT(sub_id, ' ', sub_name, ' ', sub_code)"), $text]);
         }
