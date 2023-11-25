@@ -76,6 +76,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                //reglas para buscar total
                 [
                     'class' => 'yii\web\UrlRule',
                     'pattern' => 'listg/buscar/<text:[\w\-]+>/<id:\d+>',
@@ -83,6 +84,14 @@ $config = [
                     'defaults' => ['id' => null],
                 ],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'listg/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'listg/total'],
+                //buscar total library
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'library/buscar/<text:[\w\-]+>/<id:\d+>',
+                    'route' => 'library/buscar',
+                    'defaults' => ['id' => null],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'library/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'library/total'],
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -140,7 +149,19 @@ $config = [
                         'GET total/{text}' => 'total',
                     ],
                 ],
-                
+                //Regla para buscar en library
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'library',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
+                    ],
+                ],
                                
             ],
         ]

@@ -105,28 +105,18 @@ public function actionBuscar($text = '', $id = null)
 }
 
 
-
-
-
-
-
-
 public function actionTotal($text = '', $id = null)
 {
     $total = Listg::find()->joinWith(['listFkgroup', 'listFkperson']);
-
     if ($id !== null) {
         $total = $total->Where(['list_fkgroup' => $id]);
     }
-
     if ($text !== '') {
         $total = $total
             ->andWhere(['like', new \yii\db\Expression(
                 "CONCAT(list_id, ' ', list_fkgroup, ' ', list_fkperson, ' ', group.gro_code, ' ', CONCAT(person.per_name, ' ', person.per_paternal, ' ', person.per_maternal))"), $text]);
     }
-
     $total = $total->count();
-    
     return $total;
 }
 
