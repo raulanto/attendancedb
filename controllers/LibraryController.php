@@ -43,7 +43,7 @@ class LibraryController extends ActiveController
     {
         $libraries = Library::find()->joinWith(['libFkgroup']);
     
-        // Filter by group ID if provided
+        
         if ($id !== null) {
             $libraries = $libraries->andWhere(['lib_fkgroup' => $id]);
         }
@@ -61,7 +61,7 @@ class LibraryController extends ActiveController
             ],
         ]);
     
-        // Check if libraries were found
+        
         if (!empty($dataProvider->getModels())) {
             $result = [];
             foreach ($dataProvider->getModels() as $library) {

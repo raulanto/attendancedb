@@ -162,6 +162,19 @@ $config = [
                         'GET total/{text}' => 'total',
                     ],
                 ],
+                //Regla para buscar en library
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'library',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
+                    ],
+                ],
                                
             ],
         ]
