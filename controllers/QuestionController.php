@@ -4,6 +4,7 @@ namespace app\controllers;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
+use app\models\question;
 
 class QuestionController extends ActiveController
 {
