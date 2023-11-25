@@ -30,7 +30,7 @@ class LibraryController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view' , 'librarys']
+            'except' => ['index', 'view' , 'librarys','buscar','total']
         ];
     
         return $behaviors;
@@ -39,27 +39,86 @@ class LibraryController extends ActiveController
 
     public $enableCsrfValidation = false;
 
-    public function actionLibrarys($id)
-{
-    // Busca todas las entradas de la tabla "library" donde "lib_fkgroup" coincide con el valor proporcionado
-    $libraryEntries = Library::find()->where(['lib_fkgroup' => $id])->all();
-
-    // Verifica si se encontraron entradas
-    if (!empty($libraryEntries)) {
-        $result = [];
-        foreach ($libraryEntries as $entry) {
-            $result[] = [
-                'lib_id' => $entry->lib_id,
-                'lib_type' => $entry->lib_type,
-                'lib_title' => $entry->lib_title,
-                'lib_description' => $entry->lib_description,
-                'lib_file' => $entry->lib_file,
-            ];
+    public function actionLibrarys($text = '', $id = null)
+    {
+        $libraries = Library::find()->joinWith(['libFkgroup']);
+    
+        // Filter by group ID if provided
+        if ($id !== null) {
+            $libraries = $libraries->andWhere(['lib_fkgroup' => $id]);
         }
-        return $result;
-    } else {
-        return ['message' => 'No se encontraron entradas en la tabla "library" para el grupo proporcionado'];
+    
+        if ($text !== '') {
+            $libraries = $libraries
+                ->andWhere(['like', new \yii\db\Expression(
+                    "CONCAT(lib_id, ' ', lib_fkgroup, ' ', lib_type, ' ', lib_title)"), $text]);
+        }
+    
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => $libraries,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+    
+        // Check if libraries were found
+        if (!empty($dataProvider->getModels())) {
+            $result = [];
+            foreach ($dataProvider->getModels() as $library) {
+                $result[] = [
+                    'lib_id'         => $library->lib_id,
+                    'lib_fkgroup'   => $library->lib_fkgroup,
+                    'lib_type'      => $library->lib_type,
+                    'lib_title'     => $library->lib_title,
+                ];
+            }
+            return $result;
+        } else {
+            return ['message' => 'No se encontraron bibliotecas para el grupo proporcionado'];
+        }
     }
-}
+    
+    public function actionBuscar($text = '', $id = null)
+    {
+        $libraries = Library::find()->joinWith(['libFkgroup']);
+
+        if ($id !== null) {
+            $libraries = $libraries->andWhere(['lib_fkgroup' => $id]);
+        }
+    
+        if ($text !== '') {
+            $libraries = $libraries
+                ->andWhere(['like', new \yii\db\Expression(
+                    "CONCAT(lib_id, ' ', lib_fkgroup, ' ', lib_type, ' ', lib_title)"), $text]);
+        }
+    
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => $libraries,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+    
+        return $dataProvider->getModels();
+    }
+    
+    public function actionTotal($text = '', $id = null)
+    {
+        $total = Library::find()->joinWith(['libFkgroup']);
+    
+        if ($id !== null) {
+            $total = $total->andWhere(['lib_fkgroup' => $id]);
+        }
+    
+        if ($text !== '') {
+            $total = $total
+                ->andWhere(['like', new \yii\db\Expression(
+                    "CONCAT(lib_id, ' ', lib_fkgroup, ' ', lib_type, ' ', lib_title)"), $text]);
+        }
+    
+        $total = $total->count();
+        return $total;
+    }
+    
 
 }

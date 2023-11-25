@@ -71,16 +71,37 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'teacher', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'classroom', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'group', 'pluralize' => false],
-                //['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'listg'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'library', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
-                ['class' => 'yii\web\UrlRule', 'pattern' => 'group/buscar/<text:.*>', 'route' => 'group/buscar'],
+
+                //buscar total group
+                [
+                    'class' => 'yii\web\UrlRule', 
+                    'pattern' => 'group/buscar/<text:.*>', 
+                    'route' => 'group/buscar'
+                ],    
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'group/total/<text:.*>', 'route' => 'group/total'],
-                ['class' => 'yii\web\UrlRule', 'pattern' => 'classroom/buscar/<text:.*>', 'route' => 'classroom/buscar'],
+
+                //buscar total classroom
+                [
+                    'class' => 'yii\web\UrlRule', 
+                    'pattern' => 'classroom/buscar/<text:.*>', 
+                    'route' => 'classroom/buscar'
+                ],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'classroom/total/<text:.*>', 'route' => 'classroom/total'],
+
+                //buscar total library
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'library/buscar/<text:[\w\-]+>/<id:\d+>',
+                    'route' => 'library/buscar',
+                    'defaults' => ['id' => null],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'library/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'library/total'],
+
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -125,6 +146,7 @@ $config = [
                         'GET librarys/{id}' => 'librarys'
                     ],
                 ],
+
                 //Regla para buscar en group
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -138,6 +160,7 @@ $config = [
                         'GET total' => 'id',
                     ],
                 ],
+
                 //Regla para buscar en classroom
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -149,6 +172,20 @@ $config = [
                     'extraPatterns' => [
                         'GET buscar/{text}' => 'buscar',
                         'GET total' => 'id',
+                    ],
+                ],
+                
+                //Regla para buscar en library
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'library',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
                     ],
                 ],
                                
