@@ -1,10 +1,15 @@
 <?php
 namespace app\controllers;
 
+use Yii;
+use app\models\Teacher;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
-
+use app\models\RegistroFrom;
+use yii\data\ActiveDataProvider;
+use webvimark\modules\UserManagement\models\User;
+use webvimark\modules\UserManagement\models\forms\LoginForm;
 class TeacherController extends ActiveController
 {
     public function behaviors()
@@ -29,7 +34,7 @@ class TeacherController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view','login','registrar']
         ];
     
         return $behaviors;
@@ -37,4 +42,42 @@ class TeacherController extends ActiveController
     public $modelClass = 'app\models\Teacher';
 
     public $enableCsrfValidation = false;
+
+    public function actionLogin() {
+        $token = '';
+        $model = new LoginForm();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        if($model->login()) {
+            $token = User::findOne(['username' => $model->username])->auth_key;
+        }
+        return $token;
+    }
+
+    public function actionRegistrar() { 
+        $token = '';
+        $model = new RegistroFrom();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        $user = new User();
+        $teacher = new UserTeacher();
+        $user->username = $model->username;
+        $user->password = $model->password;
+        $user->status = User::STATUS_ACTIVE;
+        $user->email_confirmed = 1;
+        if($user->save()) {
+            $teacher->alu_matricula = $model->username;
+            $teacher->tea_name = $model->tea_name;
+            $teacher->tea_paternal = $model->tea_paternal;
+            $teacher->tea_maternal = $model->tea_maternal;
+            $teacher->tea_mail = $model->tea_mail;
+            $teacher->tea_phone = $model->tea_phone;
+            $teacher->tea_fkdegree = $model->tea_fkdegree;
+            
+            if($teacher->save()) {
+                $token = $user->auth_key;
+            }
+        } else {
+            return $user;
+        }
+        return $token;
+    }
 }

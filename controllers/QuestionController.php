@@ -30,7 +30,7 @@ class QuestionController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view','questionList','buscar','total']
+            'except' => ['index', 'view','questions','buscar','total']
         ];
     
         return $behaviors;
@@ -39,7 +39,7 @@ class QuestionController extends ActiveController
 
     public $enableCsrfValidation = false;
     
-        public function actionQuestionList($text = '', $id = null)
+        public function actionQuestions($text = '', $id = null)
     {
         $questions = Question::find()->joinWith(['queFktag', 'queFkperson', 'queFkteacher']);
 
@@ -68,6 +68,7 @@ class QuestionController extends ActiveController
                 $result[] = [
                     'que_id'       => $question->que_id,
                     'que_fktag'    => $question->que_fktag,
+                    'que_description'=> $question->que_description,
                     'que_fkperson' => $question->que_fkperson,
                     'que_fkteacher'=> $question->que_fkteacher,
                     'person'       => $question->queFkperson->per_name,
@@ -86,7 +87,7 @@ class QuestionController extends ActiveController
 
         
         if ($id !== null) {
-            $questions = $questions->andWhere(['que_fktag' => $id]);
+            $questions = $questions->andWhere(['que_fkperson' => $id]);
         }
 
         if ($text !== '') {
@@ -107,10 +108,10 @@ class QuestionController extends ActiveController
 
     public function actionTotal($text = '', $id = null)
     {
-        $total = Question::find()->joinWith(['queFktag', 'queFkperson', 'queFkteacher']);
+        $total = Question::find()->joinWith(['queFkperson', 'queFkperson', 'queFkteacher']);
 
         if ($id !== null) {
-            $total = $total->andWhere(['que_fktag' => $id]);
+            $total = $total->andWhere(['que_fkperson' => $id]);
         }
 
         if ($text !== '') {

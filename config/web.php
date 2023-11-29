@@ -92,6 +92,14 @@ $config = [
                     'defaults' => ['id' => null],
                 ],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'library/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'library/total'],
+                //buscar total question
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'question/buscar/<text:[\w\-]+>/<id:\d+>',
+                    'route' => 'question/buscar',
+                    'defaults' => ['id' => null],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'question/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'question/total'],
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -162,10 +170,10 @@ $config = [
                         'GET total/{text}' => 'total',
                     ],
                 ],
-                //Regla para buscar en library
+                //Regla para buscar en question
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'library',
+                    'controller' => 'question',
                     'tokens' => [
                         '{id}' => '<id:\d[\\d,]*>',
                         '{text}' => '<text:\w+>'
