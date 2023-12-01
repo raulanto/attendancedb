@@ -183,6 +183,18 @@ $config = [
                         'GET total/{text}' => 'total',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'teacher',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'POST login' => 'login',
+                        'GET registrar' => 'registrar',
+                    ],
+                ],
                                
             ],
         ]

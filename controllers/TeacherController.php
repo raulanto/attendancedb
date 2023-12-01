@@ -64,7 +64,7 @@ class TeacherController extends ActiveController
         $user->status = User::STATUS_ACTIVE;
         $user->email_confirmed = 1;
         if($user->save()) {
-            $teacher->alu_matricula = $model->username;
+            // $teacher->username = $model->username;
             $teacher->tea_name = $model->tea_name;
             $teacher->tea_paternal = $model->tea_paternal;
             $teacher->tea_maternal = $model->tea_maternal;
