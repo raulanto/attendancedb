@@ -192,7 +192,7 @@ $config = [
                     ],
                     'extraPatterns' => [
                         'POST login' => 'login',
-                        'GET registrar' => 'registrar',
+                        'POST registrar' => 'registrar',
                     ],
                 ],
                                
