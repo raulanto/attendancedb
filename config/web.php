@@ -151,6 +151,28 @@ $config = [
                         'GET librarys/{id}' => 'librarys'
                     ],
                 ],
+                 //Regla para traer todos los extra-group de un grupo especifico               
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'extragroup',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>'
+                    ],
+                    'extraPatterns' => [
+                        'GET extragroups/{id}' => 'extragroups'
+                    ],
+                ],   
+                 //Regla para traer todos los grade de un grupo especifico               
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'grade',
+                    'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
+                    ],
+                    'extraPatterns' => [
+                        'GET grades/{id}' => 'grades',
+                    ],
+                ],             
 
                 //Regla para buscar en group
                 [
@@ -192,36 +214,7 @@ $config = [
                         'GET buscar/{text}' => 'buscar',
                         'GET total/{text}' => 'total',
                     ],
-                ],
-
-                //Regla para extra-group
-                [
-                    'class'      => 'yii\rest\UrlRule',
-                    'controller' => 'extra-group',
-                    'tokens' => [
-                        '{id}'        => '<id:\\d[\\d,]*>',
-                        '{text}' => '<text:\\w+>'
-                    ],
-                    'extraPatterns' => [
-                        'GET buscar/{text}' => 'buscar',
-                        'GET total' => 'id',
-                    ],
-                ],
-                
-                //Regla para grade
-                [
-                    'class'      => 'yii\rest\UrlRule',
-                    'controller' => 'grade',
-                    'tokens' => [
-                        '{id}'        => '<id:\\d[\\d,]*>',
-                        '{text}' => '<text:\\w+>'
-                    ],
-                    'extraPatterns' => [
-                        'GET buscar/{text}' => 'buscar',
-                        'GET total' => 'id',
-                    ],
-                ],
-                               
+                ],                               
             ],
         ]
     ],

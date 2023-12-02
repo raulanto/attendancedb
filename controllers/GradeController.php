@@ -32,7 +32,7 @@ class GradeController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'grades']
         ];
     
         return $behaviors;
@@ -40,6 +40,29 @@ class GradeController extends ActiveController
     public $modelClass = 'app\models\Grade';
 
     public $enableCsrfValidation = false;
+
+    public function actionGrades($id)
+    {
+        // Busca todas los grades que pertenecen al grupo
+        $grades = Grade::find()->where(['gra_fkgroup' => $id])->all();
+        
+        // Verifica si se encontraron registros
+        if (!empty($grades)) {
+            $result = [];
+            foreach ($grades as $datos => $grade) {
+                $result[] = [
+                    'gra_id' => $grade->gra_id,
+                    'gra_fkgroup' => $grade->gra_fkgroup,
+                    'gra_fkperson' => $grade->gra_fkperson,
+                    // Agrega otros campos si es necesario
+                ];
+            }
+            return $result;
+        } else {
+            // Manejar la situación en la que no se encontraron registros
+            return ['message' => 'No se encontraron calificaciones para el grupo proporcionado'];
+        }
+    }
 
     public function actionBuscar($text='') {
         $consulta = Grade::find()->where(['like', new \yii\db\Expression("CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ', gra_time)"), $text]);

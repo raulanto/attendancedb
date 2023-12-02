@@ -32,7 +32,7 @@ class ExtraGroupController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view', 'buscar']
+            'except' => ['index', 'view', 'extragroups', 'buscar']
         ];
     
         return $behaviors;
@@ -40,6 +40,29 @@ class ExtraGroupController extends ActiveController
     public $modelClass = 'app\models\ExtraGroup';
     
     public $enableCsrfValidation = false;
+
+    public function actionExtragroups($id)
+    {
+        // Busca todas las extragroups que pertenecen al grupo
+        $extragroups = ExtraGroup::find()->where(['extgro_fkgroup' => $id])->all();
+        
+        // Verifica si se encontraron registros
+        if (!empty($extragroups)) {
+            $result = [];
+            foreach ($extragroups as $datos => $extragroup) {
+                $result[] = [
+                    'extgro_id' => $extragroup->extgro_id,
+                    'extgro_fkgroup' => $extragroup->extgro_fkgroup,
+                    'extgro_fkextracurricular' => $extragroup->extgro_fkextracurricular,
+                    // Agrega otros campos si es necesario
+                ];
+            }
+            return $result;
+        } else {
+            // Manejar la situación en la que no se encontraron registros
+            return ['message' => 'No se encontraron registros para el grupo proporcionado'];
+        }
+    }
 
     public function actionBuscar($text='') {
         $consulta = ExtraGroup::find()->joinWith(['extgroFkextracurricular'])->where(['like', new \yii\db\Expression("CONCAT(extgro_id, ' ', ext_name)"), $text]);
