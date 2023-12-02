@@ -214,7 +214,21 @@ $config = [
                         'GET buscar/{text}' => 'buscar',
                         'GET total/{text}' => 'total',
                     ],
-                ],                               
+                ],
+
+                //Regla para buscar en grade
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'grade',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
+                    ],
+                ],                              
             ],
         ]
     ],

@@ -32,7 +32,7 @@ class GradeController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view', 'grades']
+            'except' => ['index', 'view', 'grades', 'buscar', 'total']
         ];
     
         return $behaviors;
@@ -41,48 +41,90 @@ class GradeController extends ActiveController
 
     public $enableCsrfValidation = false;
 
-    public function actionGrades($id)
+    public function actionGrades($text = '', $id = null)
     {
-        // Busca todas los grades que pertenecen al grupo
-        $grades = Grade::find()->where(['gra_fkgroup' => $id])->all();
-        
+        // Busca todas las grades que pertenecen al grupo
+        $grades = Grade::find()->where(['gra_fkgroup' => $id]);
+    
+        // Filtrar si el ID es proporcionado
+        if ($id !== null) {
+            $grades->andWhere(['gra_fkgroup' => $id]);
+        }
+    
+        if ($text !== '') {
+            $grades->andWhere(['like', new \yii\db\Expression(
+                "CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ',
+                        gra_time, ' ', gra_commit, ' ',  gra_fkperson)"), $text]);
+        }
+    
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => $grades,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+    
         // Verifica si se encontraron registros
-        if (!empty($grades)) {
+        if (!empty($dataProvider->getModels())) {
             $result = [];
-            foreach ($grades as $datos => $grade) {
+            foreach ($dataProvider->getModels() as $grade) {
                 $result[] = [
-                    'gra_id' => $grade->gra_id,
-                    'gra_fkgroup' => $grade->gra_fkgroup,
-                    'gra_fkperson' => $grade->gra_fkperson,
-                    // Agrega otros campos si es necesario
+                    'gra_id'       => $grade->gra_id,
+                    'gra_type'     => $grade->gra_type,
+                    'gra_score'    => $grade->gra_score,
+                    'gra_date'     => $grade->gra_date,
+                    'gra_time'     => $grade->gra_time,
+                    'gra_commit'   => $grade->gra_commit,                    
                 ];
             }
             return $result;
         } else {
-            // Manejar la situación en la que no se encontraron registros
             return ['message' => 'No se encontraron calificaciones para el grupo proporcionado'];
         }
     }
 
-    public function actionBuscar($text='') {
-        $consulta = Grade::find()->where(['like', new \yii\db\Expression("CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ', gra_time)"), $text]);
+    public function actionBuscar($text = '', $id = null)
+    {
+        $grades = Grade::find()->where(['gra_fkgroup' => $id]);
+
+        if ($id !== null) {
+            $grades = $grades->andWhere(['gra_fkgroup' => $id]);
+        }
     
-        $grades = new \yii\data\ActiveDataProvider([
-            'query' => $consulta,
+        if ($text !== '') {
+            $grades = $grades
+                ->andWhere(['like', new \yii\db\Expression(
+                    "CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ',
+                        gra_time, ' ', gra_commit, ' ', gra_fkgroup, ' ',  gra_fkperson)"), $text]);
+        }
+    
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => $grades,
             'pagination' => [
-                'pageSize' => 20 // Número de resultados por página
+                'pageSize' => 20,
             ],
         ]);
     
-        return $grades->getModels();
+        return $dataProvider->getModels();
     }
-
-    public function actionTotal($text='') {
+    
+    public function actionTotal($text = '', $id = null)
+    {
         $total = Grade::find();
-        if($text != '') {
-            $total = $total->where(['like', new \yii\db\Expression("CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ', gra_time)"), $text]);
+    
+        if ($id !== null) {
+            $total = $total->andWhere(['gra_fkgroup' => $id]);
         }
+    
+        if ($text !== '') {
+            $total = $total
+                ->andWhere(['like', new \yii\db\Expression(
+                    "CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ',
+                        gra_time, ' ', gra_commit)"), $text]);
+        }
+    
         $total = $total->count();
         return $total;
     }
+    
 }

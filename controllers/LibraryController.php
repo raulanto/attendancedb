@@ -30,7 +30,7 @@ class LibraryController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view' , 'librarys','buscar','total']
+            'except' => ['index', 'view' , 'librarys', 'buscar', 'total']
         ];
     
         return $behaviors;
