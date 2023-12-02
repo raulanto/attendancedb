@@ -76,6 +76,11 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
+                
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/buscar/<text:.*>', 'route' => 'extra-group/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/total/<text:.*>', 'route' => 'extra-group/total'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/buscar/<text:.*>', 'route' => 'grade/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/total/<text:.*>', 'route' => 'grade/total'],
 
                 //buscar total group
                 [
@@ -186,6 +191,34 @@ $config = [
                     'extraPatterns' => [
                         'GET buscar/{text}' => 'buscar',
                         'GET total/{text}' => 'total',
+                    ],
+                ],
+
+                //Regla para extra-group
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'extra-group',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
+                
+                //Regla para grade
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'grade',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
                     ],
                 ],
                                

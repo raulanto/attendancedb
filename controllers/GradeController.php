@@ -5,6 +5,9 @@ use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBearerAuth;
 
+use app\models\Grade;
+
+
 class GradeController extends ActiveController
 {
     public function behaviors()
@@ -37,4 +40,26 @@ class GradeController extends ActiveController
     public $modelClass = 'app\models\Grade';
 
     public $enableCsrfValidation = false;
+
+    public function actionBuscar($text='') {
+        $consulta = Grade::find()->where(['like', new \yii\db\Expression("CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ', gra_time)"), $text]);
+    
+        $grades = new \yii\data\ActiveDataProvider([
+            'query' => $consulta,
+            'pagination' => [
+                'pageSize' => 20 // Número de resultados por página
+            ],
+        ]);
+    
+        return $grades->getModels();
+    }
+
+    public function actionTotal($text='') {
+        $total = Grade::find();
+        if($text != '') {
+            $total = $total->where(['like', new \yii\db\Expression("CONCAT(gra_id, ' ', gra_type, ' ', gra_score, ' ', gra_date, ' ', gra_time)"), $text]);
+        }
+        $total = $total->count();
+        return $total;
+    }
 }
