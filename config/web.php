@@ -79,7 +79,12 @@ $config = [
                 
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/buscar/<text:.*>', 'route' => 'extra-group/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/total/<text:.*>', 'route' => 'extra-group/total'],
-                ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/buscar/<text:.*>', 'route' => 'grade/buscar'],
+                //buscar total grade
+                [
+                    'class' => 'yii\web\UrlRule', 
+                    'pattern' => 'grade/buscar', 
+                    'route' => 'grade/buscar'
+                ],                
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/total/<text:.*>', 'route' => 'grade/total'],
 
                 //buscar total group
