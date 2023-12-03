@@ -65,6 +65,9 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'extracurricular', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-group', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'grade', 'pluralize' => false],
+                // MODIFICACIONES-----------------------------------------------------------
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'grade-person', 'pluralize' => false],
+                // MODIFICACIONES-----------------------------------------------------------
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'person', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'question', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag', 'pluralize' => false],
@@ -80,6 +83,10 @@ $config = [
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'extra-group/total/<text:.*>', 'route' => 'extra-group/total'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/buscar/<text:.*>', 'route' => 'grade/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/total/<text:.*>', 'route' => 'grade/total'],
+                // MODIFICACIONES-----------------------------------------------------------
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/buscar/<text:.*>', 'route' => 'extracurricular/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/total/<text:.*>', 'route' => 'extracurricular/total'],
+                // MODIFICACIONES-----------------------------------------------------------
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -151,6 +158,21 @@ $config = [
                         'GET total' => 'id',
                     ],
                 ],
+                // MODIFICACIONES-----------------------------------------------------------
+                //Regla para extracurricular
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'extracurricular',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
+                // MODIFICACIONES-----------------------------------------------------------
             ],
         ],
     ],
