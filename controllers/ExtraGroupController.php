@@ -8,8 +8,6 @@ use app\models\ExtraGroup;
 
 class ExtraGroupController extends ActiveController
 {
-    public $modelClass = 'app\models\ExtraGroup';
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -32,15 +30,20 @@ class ExtraGroupController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view', 'extragroups', 'buscar']
+            'except' => ['index', 'view', 'extragroups', 'total']
         ];
     
         return $behaviors;
     }
 
+    public $modelClass = 'app\models\ExtraGroup';
+
+    public $enableCsrfValidation = false;
+
     public function actionExtragroups($id)
     {
         $text = \Yii::$app->request->get('text');
+        $page = \Yii::$app->request->get('page', 1);
 
         $query = ExtraGroup::find()
             ->with(['extgroFkextracurricular'])
@@ -51,7 +54,15 @@ class ExtraGroupController extends ActiveController
             $query->andWhere(['like', 'extracurricular.ext_name', $text]);
         }
 
-        $extragroups = $query->all();
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'page' => $page - 1,
+                'pageSize' => 20,
+            ],
+        ]);
+
+        $extragroups = $dataProvider->getModels();
 
         if (!empty($extragroups)) {
             $result = [];
@@ -72,18 +83,20 @@ class ExtraGroupController extends ActiveController
         }
     }
 
-    public function actionBuscar($text='') {
-        $consulta = ExtraGroup::find()->joinWith(['extgroFkextracurricular'])->where(['like', 'extracurricular.ext_name', $text]);
-
-        $extras = new \yii\data\ActiveDataProvider([
-            'query' => $consulta,
-            'pagination' => [
-                'pageSize' => 20 // Número de resultados por página
-            ],
-        ]);
-
-        return $extras->getModels();
+    public function actionTotal($id = null, $text = '')
+    {
+        $query = ExtraGroup::find()->joinWith(['extgroFkextracurricular'])->andFilterWhere(['extgro_fkgroup' => $id]);
+    
+        if ($text !== '') {
+            $query->andWhere(['like', 'extracurricular.ext_name', $text]);
+        }
+    
+        $total = $query->count();
+    
+        return $total;
     }
+    
+    
+    
+
 }
-
-
