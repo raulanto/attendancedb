@@ -76,19 +76,26 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
-                
+
+
+
+                //buscar total major
                 [
-                    'class' => 'yii\web\UrlRule',
-                    'pattern' => 'extra-group/extragroups/<id:\d+>',
-                    'route' => 'extra-group/extragroups',
-                    'defaults' => ['text' => null],
+                    'class' => 'yii\web\UrlRule', 
+                    'pattern' => 'major/buscar/<text:.*>', 
+                    'route' => 'major/buscar'
                 ],
-                [
-                    'class' => 'yii\web\UrlRule',
-                    'pattern' => 'extra-group/buscar/<text:\w+>',
-                    'route' => 'extra-group/buscar',
-                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'major/total/<text:.*>', 'route' => 'major/total'],
                 
+                //buscar total subject
+                [
+                    'class' => 'yii\web\UrlRule', 
+                    'pattern' => 'subject/buscar/<text:.*>', 
+                    'route' => 'subject/buscar'
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'subject/total/<text:.*>', 'route' => 'subject/total'],                            
+
+
 
                 //buscar total grade
                 [
@@ -97,6 +104,8 @@ $config = [
                     'route' => 'grade/buscar'
                 ],                
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'grade/total/<text:.*>', 'route' => 'grade/total'],
+
+
 
                 //buscar total group
                 [
@@ -122,6 +131,8 @@ $config = [
                     'defaults' => ['id' => null],
                 ],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'library/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'library/total'],
+
+
 
                 //Regla para la funcion que trae la lista de un cierto grupo
                 [
@@ -156,6 +167,9 @@ $config = [
                         'GET codigos/{id}' => 'codigos'
                     ],
                 ],
+
+
+
                 //Regla para traer todos los archivos de un grupo especifico
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -167,6 +181,9 @@ $config = [
                         'GET librarys/{id}' => 'librarys'
                     ],
                 ],
+
+
+
                  //Regla para traer todos los extra-group de un grupo especifico               
                 [
                     'class'      => 'yii\rest\UrlRule',
@@ -188,7 +205,39 @@ $config = [
                     'extraPatterns' => [
                         'GET grades/{id}' => 'grades',
                     ],
-                ],             
+                ],   
+                
+                
+
+                //Regrla para buscar en major
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'major',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
+                
+                //Regrla para buscar en subjects
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'subject',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],
+
+
 
                 //Regla para buscar en group
                 [
@@ -232,6 +281,8 @@ $config = [
                     ],
                 ],
 
+
+
                 //Regla para buscar en grade
                 [
                     'class' => 'yii\rest\UrlRule',
@@ -244,7 +295,20 @@ $config = [
                         'GET buscar/{text}' => 'buscar',
                         'GET total/{text}' => 'total',
                     ],
-                ],                              
+                ], 
+                
+                 //Reglas de extragroup
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'extra-group/extragroups/<id:\d+>',
+                    'route' => 'extra-group/extragroups',
+                    'defaults' => ['text' => null],
+                ],
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'extra-group/buscar/<text:\w+>',
+                    'route' => 'extra-group/buscar',
+                ],  
             ],
         ]
     ],
