@@ -53,10 +53,10 @@ class GradeController extends ActiveController
             $result[] = [
                 'gra_id'       => $grade->gra_id,
                 'gra_type'     => $grade->gra_type,
-                'gra_score'    => $grade->gra_score,
+                // 'gra_score'    => $grade->gra_score, MOOOOOOOOD
                 'gra_date'     => $grade->gra_date,
                 'gra_time'     => $grade->gra_time,
-                'gra_commit'   => $grade->gra_commit,                    
+                // 'gra_commit'   => $grade->gra_commit, MOOOOOOOOD                
             ];
         }
 
@@ -74,8 +74,8 @@ class GradeController extends ActiveController
         if ($text !== '') {
             $grades = $grades->andWhere(['or',
                 ['like', 'gra_type', $text],
-                ['like', 'gra_score', $text],
-                ['like', 'gra_commit', $text],
+                // ['like', 'gra_score', $text], MOOOOOOOOOOOOOOD
+                // ['like', 'gra_commit', $text], MOOOOOOOOOOOOOOOD
             ]);
         }
     
@@ -94,10 +94,10 @@ class GradeController extends ActiveController
             $result[] = [
                 'gra_id'       => $grade->gra_id,
                 'gra_type'     => $grade->gra_type,
-                'gra_score'    => $grade->gra_score,
+                // 'gra_score'    => $grade->gra_score, MOOOOOOOOOOOOOD
                 'gra_date'     => $grade->gra_date,
                 'gra_time'     => $grade->gra_time,
-                'gra_commit'   => $grade->gra_commit,
+                // 'gra_commit'   => $grade->gra_commit, MOOOOOOOOOOOOOD
             ];
         }
     

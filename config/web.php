@@ -63,8 +63,9 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'code', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'degree', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'extracurricular', 'pluralize' => false],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-person', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'extra-group', 'pluralize' => false], //MOD----------
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'grade', 'pluralize' => false],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'grade-person', 'pluralize' => false], //MOD----------
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'person', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'question', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag', 'pluralize' => false],
@@ -76,7 +77,11 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'major', 'pluralize' => false],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
-                
+                //MOD----------
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/buscar/<text:.*>', 'route' => 'extracurricular/buscar'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/total/<text:.*>', 'route' => 'extracurricular/total'],
+                //MOD----------
+
                 [
                     'class' => 'yii\web\UrlRule',
                     'pattern' => 'extra-group/extragroups/<id:\d+>',
@@ -244,7 +249,21 @@ $config = [
                         'GET buscar/{text}' => 'buscar',
                         'GET total/{text}' => 'total',
                     ],
-                ],                              
+                ],
+                //MOD----------
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'extracurricular',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total' => 'id',
+                    ],
+                ],  
+                //MOD----------                            
             ],
         ]
     ],
