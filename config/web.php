@@ -78,6 +78,15 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'subject-major', 'pluralize' => false],
 
 
+                //reglas para buscar total listg
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'listg/buscar/<text:[\w\-]+>/<id:\d+>',
+                    'route' => 'listg/buscar',
+                    'defaults' => ['id' => null],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'listg/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'listg/total'],
+
 
                 //buscar total major
                 [
@@ -132,6 +141,15 @@ $config = [
                 ],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'library/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'library/total'],
 
+
+                //buscar total question
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => 'question/buscar/<text:[\w\-]+>/<id:\d+>',
+                    'route' => 'question/buscar',
+                    'defaults' => ['id' => null],
+                ],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'question/total/<text:[\w\-]+>/<id:\d+>', 'route' => 'question/total'],
 
 
                 //Regla para la funcion que trae la lista de un cierto grupo
@@ -195,6 +213,7 @@ $config = [
                         'GET extragroups/{id}' => 'extragroups'
                     ],
                 ],   
+
                  //Regla para traer todos los grade de un grupo especifico               
                 [
                     'class' => 'yii\rest\UrlRule',
@@ -207,9 +226,22 @@ $config = [
                     ],
                 ],   
                 
-                
+                //Regla para buscar en listg
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'listg',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
+                        'GET gruposp/{text}' => 'gruposp'
+                    ],
+                ],                
 
-                //Regrla para buscar en major
+                //Regla para buscar en major
                 [
                     'class'      => 'yii\rest\UrlRule',
                     'controller' => 'major',
@@ -308,7 +340,112 @@ $config = [
                     'class' => 'yii\web\UrlRule',
                     'pattern' => 'extra-group/buscar/<text:\w+>',
                     'route' => 'extra-group/buscar',
-                ],  
+                ], 
+                
+                
+                //Regla para buscar en question
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'question',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
+                    ],
+                ],
+                //Regla para teacher
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'teacher',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'POST login' => 'login',
+                        'POST registrar' => 'registrar',
+                    ],
+                ],
+                //Regla para teacher
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'person',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'POST login' => 'login',
+                        'POST registrar' => 'registrar',
+                    ],
+                ],
+                //Regla para traer todos los grupo de una persona especifico
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'group',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET grupos/{id}' => 'grupos'
+                    ],
+                ],
+
+                //Regla para buscar en question
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'question',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET buscar/{text}' => 'buscar',
+                        'GET total/{text}' => 'total',
+                    ],
+                ],
+                //Regla para teacher
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'teacher',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'POST login' => 'login',
+                        'POST registrar' => 'registrar',
+                    ],
+                ],
+                //Regla para teacher
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'person',
+                    'tokens' => [
+                        '{id}' => '<id:\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'POST login' => 'login',
+                        'POST registrar' => 'registrar',
+                    ],
+                ],
+                //Regla para traer todos los grupo de una persona especifico
+                [
+                    'class'      => 'yii\rest\UrlRule',
+                    'controller' => 'group',
+                    'tokens' => [
+                        '{id}'        => '<id:\\d[\\d,]*>',
+                        '{text}' => '<text:\w+>'
+                    ],
+                    'extraPatterns' => [
+                        'GET grupos/{id}' => 'grupos'
+                    ],
+                ],                
             ],
         ]
     ],

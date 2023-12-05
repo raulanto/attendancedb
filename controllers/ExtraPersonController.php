@@ -37,4 +37,40 @@ class ExtraPersonController extends ActiveController
     public $modelClass = 'app\models\ExtraPerson';
 
     public $enableCsrfValidation = false;
+    public function actionLogin() {
+        $token = '';
+        $model = new LoginForm();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        if($model->login()) {
+            $token = User::findOne(['username' => $model->username])->auth_key;
+        }
+        return $token;
+    }
+
+    public function actionRegistrar() { 
+        $token = '';
+        $model = new RegistroFrom();
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
+        $user = new User();
+        $alumno = new UserAlumno();
+        $user->username = $model->username;
+        $user->password = $model->password;
+        $user->status = User::STATUS_ACTIVE;
+        $user->email_confirmed = 1;
+        if($user->save()) {
+            $alumno->alu_matricula = $model->username;
+            $alumno->alu_nombre = $model->alu_nombre;
+            $alumno->alu_paterno = $model->alu_paterno;
+            $alumno->alu_materno = $model->alu_materno;
+            $alumno->alu_semestre = $model->alu_semestre;
+            $alumno->alu_sexo = $model->alu_sexo;
+            $alumno->alu_fkcarrera = 0;
+            if($alumno->save()) {
+                $token = $user->auth_key;
+            }
+        } else {
+            return $user;
+        }
+        return $token;
+    }
 }
