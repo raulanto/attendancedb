@@ -31,7 +31,7 @@ class GradePersonController extends ActiveController
             'authMethods' => [
                 HttpBearerAuth::className(),
             ],
-            'except' => ['index', 'view']
+            'except' => ['index', 'view', 'gradesp']
         ];
     
         return $behaviors;
@@ -39,4 +39,29 @@ class GradePersonController extends ActiveController
     public $modelClass = 'app\models\GradePerson';
     
     public $enableCsrfValidation = false;
+
+    public function actionGradesp($id)
+{
+    // Busca todas las listas que pertenecen al grupo
+    $grades = GradePerson::find()->where(['graper_fkgrade' => $id])->all();
+
+    // Verifica si se encontraron listas
+    if (!empty($grades)) {
+        $result = [];
+        foreach ($grades as $datos=> $grade) {
+            $result[] = [
+                'graper_id' => $grade->graper_id,
+                'graper_score' => $grade->graper_score,
+                'graper_commit' => $grade->graper_commit,
+                'graper_fkgrade' => $grade->graperFkgrade->gra_type,
+                'graper_fkperson' => $grade->graperFkperson->completo,
+                // Agrega otros campos si es necesario
+            ];
+        }
+        return $result;
+    } else {
+        // Manejar la situación en la que no se encontraron listas
+        return ['message' => 'No se encontraron calificaciones para la tarea asignada'];
+    }
+}
 }
