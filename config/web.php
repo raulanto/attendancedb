@@ -80,6 +80,7 @@ $config = [
                 //MOD----------
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/buscar/<text:.*>', 'route' => 'extracurricular/buscar'],
                 ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/total/<text:.*>', 'route' => 'extracurricular/total'],
+                ['class' => 'yii\web\UrlRule', 'pattern' => 'extracurricular/buscar-todos/<text:.*>', 'route' => 'extracurricular/buscar-todos'],
                 //MOD----------
 
                 [
@@ -261,8 +262,9 @@ $config = [
                     'extraPatterns' => [
                         'GET buscar/{text}' => 'buscar',
                         'GET total' => 'id',
+                        'GET buscar-todos' => 'buscar-todos',
                     ],
-                ],  
+                ], 
                 //MOD----------                            
             ],
         ]
